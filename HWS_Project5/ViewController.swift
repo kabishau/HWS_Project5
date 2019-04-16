@@ -35,7 +35,7 @@ class ViewController: UITableViewController {
         // trailing closure syntax
         let submitAction = UIAlertAction(title: "Submit", style: .default) {
             [weak self, weak alertController] action in // "action" can be replaced with _; 
-            guard let answer = alertController?.textFields?[0] else { return }
+            guard let answer = alertController?.textFields?[0].text else { return }
             self?.submit(answer)
         }
         alertController.addAction(submitAction)
