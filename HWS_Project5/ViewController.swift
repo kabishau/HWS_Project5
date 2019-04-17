@@ -57,19 +57,31 @@ class ViewController: UITableViewController {
         }
     }
     
+    // check user's word by letters against chosen word
     func isPossible(word: String) -> Bool {
+        guard let tempWord = title.lowercased() else { return false }
+        
+        for letter in word {
+            if let position = tempWord.firstIndex(of: letter) {
+                tempWord.remove(at: position)
+            } else {
+                return false
+            }
         return true
     }
     
+    // evaluate was the word used before
     func isOriginal(word: String) -> Bool {
-        return true
+        return !usedWord.contains(word)
     }
     
+    // learn how this work - may be helpful later
     func isReal(word: String) -> Bool {
-        return true
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        return misspelledRange.location == NSNotFound
     }
-    
-    
 }
 
 extension ViewController {
